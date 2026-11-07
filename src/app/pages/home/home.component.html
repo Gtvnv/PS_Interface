@@ -1,0 +1,91 @@
+@if (!termoBusca() && !categoria()) {
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg">
+      <app-game-cover [capa]="heroJogo.capa" [titulo]="heroJogo.titulo" />
+    </div>
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <span class="hero__eyebrow">Destaque da semana</span>
+      <h1 class="hero__title">{{ heroJogo.titulo }}</h1>
+      <p class="hero__studio">{{ heroJogo.estudio }}</p>
+      <p class="hero__desc">{{ heroJogo.descricao }}</p>
+      <div class="hero__actions">
+        <button class="btn btn--primary" (click)="adicionarHero()">
+          Adicionar ao carrinho · {{ heroJogo.preco | currency: 'BRL' }}
+        </button>
+        <a class="btn btn--ghost" [routerLink]="['/jogo', heroJogo.id]">
+          Ver detalhes
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESTAQUES -->
+  <section class="section container">
+    <div class="section__head">
+      <h2>Em destaque</h2>
+    </div>
+    <div class="grid">
+      @for (jogo of destaques; track jogo.id) {
+        <app-game-card [jogo]="jogo" />
+      }
+    </div>
+  </section>
+
+  <!-- PROMOÇÕES -->
+  <section class="section container">
+    <div class="section__head">
+      <h2>Ofertas imperdíveis</h2>
+      <span class="section__tag">{{ promocoes.length }} jogos</span>
+    </div>
+    <div class="grid">
+      @for (jogo of promocoes; track jogo.id) {
+        <app-game-card [jogo]="jogo" />
+      }
+    </div>
+  </section>
+}
+
+<!-- CATÁLOGO / RESULTADOS -->
+<section class="section container">
+  <div class="section__head">
+    <h2>{{ tituloSecao() }}</h2>
+    @if (termoBusca() || categoria() || filtroGenero() !== 'Todos') {
+      <button class="link-clear" (click)="limparFiltros()">Limpar filtros</button>
+    }
+  </div>
+
+  <div class="filters" role="tablist" aria-label="Filtrar por gênero">
+    <button
+      class="chip"
+      [class.chip--active]="filtroGenero() === 'Todos'"
+      (click)="selecionarGenero('Todos')"
+    >
+      Todos
+    </button>
+    @for (g of generos; track g) {
+      <button
+        class="chip"
+        [class.chip--active]="filtroGenero() === g"
+        (click)="selecionarGenero(g)"
+      >
+        {{ g }}
+      </button>
+    }
+  </div>
+
+  @if (jogosFiltrados().length) {
+    <div class="grid">
+      @for (jogo of jogosFiltrados(); track jogo.id) {
+        <app-game-card [jogo]="jogo" />
+      }
+    </div>
+  } @else {
+    <div class="empty">
+      <p class="empty__icon">🎮</p>
+      <p>Nenhum jogo encontrado com esses filtros.</p>
+      <button class="btn btn--ghost" (click)="limparFiltros()">Ver todos os jogos</button>
+    </div>
+  }
+</section>

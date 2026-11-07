@@ -1,0 +1,67 @@
+/* ============================================================
+   PSInterface — estilos globais e tema
+   ============================================================ */
+
+:root {
+  --bg: #070c16;
+  --surface: #121a28;
+  --border: #223148;
+  --text: #eaf0fa;
+  --text-dim: #8a98b0;
+  --accent: #0070d1;      /* azul PlayStation */
+  --accent-hover: #0a84ff;
+  --accent-soft: #58a6ff;
+  --success: #2ea043;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+a {
+  color: var(--accent-soft);
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Scrollbar discreta no tema escuro */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: #2a3a54;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #37496a;
+}
+
+/* Foco acessível */
+:focus-visible {
+  outline: 2px solid var(--accent-soft);
+  outline-offset: 2px;
+  border-radius: 4px;
+}

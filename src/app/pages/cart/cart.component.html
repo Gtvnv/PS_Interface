@@ -1,0 +1,80 @@
+<div class="container cart-page">
+  @if (finalizado()) {
+    <div class="done">
+      <p class="done__icon">✅</p>
+      <h1>Pedido confirmado!</h1>
+      <p>Seus jogos já estão disponíveis na sua biblioteca. Bom jogo!</p>
+      <a class="btn btn--primary" routerLink="/" (click)="voltarAsCompras()">
+        Continuar explorando
+      </a>
+    </div>
+  } @else {
+    <h1 class="cart-page__title">Seu carrinho</h1>
+
+    @if (cart.lista().length) {
+      <div class="cart-layout">
+        <div class="items">
+          @for (item of cart.lista(); track item.jogo.id) {
+            <div class="item">
+              <a class="item__cover" [routerLink]="['/jogo', item.jogo.id]">
+                <app-game-cover [capa]="item.jogo.capa" [titulo]="item.jogo.titulo" />
+              </a>
+
+              <div class="item__info">
+                <a class="item__title" [routerLink]="['/jogo', item.jogo.id]">
+                  {{ item.jogo.titulo }}
+                </a>
+                <span class="item__studio">{{ item.jogo.estudio }}</span>
+                <span class="item__unit">{{ item.jogo.preco | currency: 'BRL' }} / un.</span>
+              </div>
+
+              <div class="item__qty">
+                <button (click)="cart.alterarQuantidade(item.jogo.id, -1)" aria-label="Diminuir">−</button>
+                <span>{{ item.quantidade }}</span>
+                <button (click)="cart.alterarQuantidade(item.jogo.id, 1)" aria-label="Aumentar">+</button>
+              </div>
+
+              <div class="item__subtotal">
+                {{ item.jogo.preco * item.quantidade | currency: 'BRL' }}
+              </div>
+
+              <button
+                class="item__remove"
+                (click)="cart.remover(item.jogo.id)"
+                aria-label="Remover item"
+              >
+                ✕
+              </button>
+            </div>
+          }
+        </div>
+
+        <aside class="summary">
+          <h2>Resumo</h2>
+          <div class="summary__row">
+            <span>Itens</span>
+            <span>{{ cart.quantidadeTotal() }}</span>
+          </div>
+          <div class="summary__row">
+            <span>Subtotal</span>
+            <span>{{ cart.valorTotal() | currency: 'BRL' }}</span>
+          </div>
+          <div class="summary__row summary__row--total">
+            <span>Total</span>
+            <span>{{ cart.valorTotal() | currency: 'BRL' }}</span>
+          </div>
+          <button class="btn btn--primary" (click)="finalizar()">
+            Finalizar compra
+          </button>
+          <a class="btn btn--ghost" routerLink="/">Continuar comprando</a>
+        </aside>
+      </div>
+    } @else {
+      <div class="empty">
+        <p class="empty__icon">🛒</p>
+        <p>Seu carrinho está vazio.</p>
+        <a class="btn btn--primary" routerLink="/">Explorar jogos</a>
+      </div>
+    }
+  }
+</div>

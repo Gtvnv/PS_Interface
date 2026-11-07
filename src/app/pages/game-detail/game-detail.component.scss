@@ -1,0 +1,245 @@
+.detail-hero {
+  position: relative;
+  height: 320px;
+  overflow: hidden;
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+
+    ::ng-deep .initial {
+      font-size: 26vw;
+      opacity: 0.25;
+    }
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(7, 12, 22, 0.2), var(--bg));
+  }
+}
+
+.detail {
+  position: relative;
+  margin-top: -140px;
+  z-index: 2;
+  padding-bottom: 60px;
+}
+
+.back {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  padding: 0;
+
+  &:hover {
+    color: var(--text);
+  }
+}
+
+.detail__grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 36px;
+  align-items: start;
+}
+
+.detail__cover {
+  aspect-ratio: 3 / 4;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+}
+
+.detail__studio {
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-size: 0.82rem;
+  margin: 0 0 6px;
+}
+
+.detail__title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.05;
+  margin: 0 0 14px;
+}
+
+.detail__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  margin-bottom: 16px;
+
+  .rating {
+    color: #f5c518;
+    font-weight: 600;
+  }
+  .dot {
+    opacity: 0.5;
+  }
+}
+
+.detail__plats {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.plat {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.detail__desc {
+  line-height: 1.7;
+  font-size: 1.05rem;
+  opacity: 0.92;
+  margin: 0 0 20px;
+  max-width: 62ch;
+}
+
+.detail__tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.tag {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.buybox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 24px;
+  max-width: 560px;
+
+  &__old {
+    color: var(--text-dim);
+    text-decoration: line-through;
+    font-size: 0.9rem;
+  }
+
+  &__now-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__now {
+    font-size: 1.8rem;
+    font-weight: 800;
+  }
+
+  &__badge {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+
+  &__btn {
+    border: none;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px 28px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+
+    &:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    &--done {
+      background: var(--success);
+    }
+  }
+}
+
+.related {
+  margin-top: 56px;
+
+  h2 {
+    font-size: 1.4rem;
+    margin: 0 0 20px;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+  gap: 20px;
+}
+
+.not-found {
+  text-align: center;
+  padding: 100px 20px;
+
+  &__icon {
+    font-size: 3.5rem;
+    margin: 0 0 10px;
+  }
+
+  h1 {
+    margin: 0 0 8px;
+  }
+  p {
+    color: var(--text-dim);
+  }
+
+  .btn {
+    display: inline-block;
+    margin-top: 20px;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 26px;
+    border-radius: 10px;
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 760px) {
+  .detail__grid {
+    grid-template-columns: 1fr;
+  }
+  .detail__cover {
+    max-width: 240px;
+  }
+  .detail {
+    margin-top: -90px;
+  }
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}

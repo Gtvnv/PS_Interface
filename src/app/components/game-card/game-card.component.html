@@ -1,0 +1,44 @@
+<a class="card" [routerLink]="['/jogo', jogo.id]">
+  <div class="card__media">
+    <app-game-cover [capa]="jogo.capa" [titulo]="jogo.titulo" />
+
+    @if (jogo.desconto) {
+      <span class="badge badge--discount">-{{ jogo.desconto }}%</span>
+    }
+
+    <div class="card__platforms">
+      @for (p of jogo.plataformas; track p) {
+        <span class="tag-plat">{{ p }}</span>
+      }
+    </div>
+  </div>
+
+  <div class="card__body">
+    <p class="card__studio">{{ jogo.estudio }}</p>
+    <h3 class="card__title">{{ jogo.titulo }}</h3>
+
+    <div class="card__meta">
+      <span class="rating">★ {{ jogo.nota | number: '1.1-1' }}</span>
+      <span class="genre">{{ jogo.genero }}</span>
+    </div>
+
+    <div class="card__price">
+      <div class="price-group">
+        @if (jogo.precoAntigo) {
+          <span class="price-old">{{ jogo.precoAntigo | currency: 'BRL' }}</span>
+        }
+        <span class="price-now">{{ jogo.preco | currency: 'BRL' }}</span>
+      </div>
+
+      <button
+        type="button"
+        class="btn-add"
+        [class.btn-add--done]="noCarrinho"
+        (click)="adicionar($event)"
+        [attr.aria-label]="'Adicionar ' + jogo.titulo + ' ao carrinho'"
+      >
+        @if (noCarrinho) { ✓ } @else { + }
+      </button>
+    </div>
+  </div>
+</a>

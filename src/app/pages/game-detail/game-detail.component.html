@@ -1,0 +1,85 @@
+@if (jogo(); as j) {
+  <section class="detail-hero">
+    <div class="detail-hero__bg">
+      <app-game-cover [capa]="j.capa" [titulo]="j.titulo" />
+    </div>
+    <div class="detail-hero__overlay"></div>
+  </section>
+
+  <div class="container detail">
+    <button class="back" (click)="voltar()">← Voltar</button>
+
+    <div class="detail__grid">
+      <div class="detail__cover">
+        <app-game-cover [capa]="j.capa" [titulo]="j.titulo" />
+      </div>
+
+      <div class="detail__info">
+        <p class="detail__studio">{{ j.estudio }}</p>
+        <h1 class="detail__title">{{ j.titulo }}</h1>
+
+        <div class="detail__meta">
+          <span class="rating">★ {{ j.nota | number: '1.1-1' }}</span>
+          <span class="dot">•</span>
+          <span>{{ j.genero }}</span>
+          <span class="dot">•</span>
+          <span>{{ j.lancamento | date: 'dd/MM/yyyy' }}</span>
+        </div>
+
+        <div class="detail__plats">
+          @for (p of j.plataformas; track p) {
+            <span class="plat">{{ p }}</span>
+          }
+        </div>
+
+        <p class="detail__desc">{{ j.descricao }}</p>
+
+        <div class="detail__tags">
+          @for (t of j.tags; track t) {
+            <span class="tag">{{ t }}</span>
+          }
+        </div>
+
+        <div class="buybox">
+          <div class="buybox__price">
+            @if (j.precoAntigo) {
+              <span class="buybox__old">{{ j.precoAntigo | currency: 'BRL' }}</span>
+            }
+            <div class="buybox__now-row">
+              <span class="buybox__now">{{ j.preco | currency: 'BRL' }}</span>
+              @if (j.desconto) {
+                <span class="buybox__badge">-{{ j.desconto }}%</span>
+              }
+            </div>
+          </div>
+
+          <button
+            class="buybox__btn"
+            [class.buybox__btn--done]="noCarrinho()"
+            (click)="adicionar()"
+          >
+            @if (noCarrinho()) { ✓ Adicionado ao carrinho } @else { Adicionar ao carrinho }
+          </button>
+        </div>
+      </div>
+    </div>
+
+    @if (relacionados().length) {
+      <section class="related">
+        <h2>Jogos parecidos</h2>
+        <div class="grid">
+          @for (r of relacionados(); track r.id) {
+            <app-game-card [jogo]="r" />
+          }
+        </div>
+      </section>
+    }
+  </div>
+} @else {
+  <div class="container not-found">
+    <p class="not-found__icon">🕹️</p>
+    <h1>Jogo não encontrado</h1>
+    <p>O título que você procura não está no catálogo.</p>
+    <a class="btn" routerLink="/">Voltar à loja</a>
+  </div>
+}
